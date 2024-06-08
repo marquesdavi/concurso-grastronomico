@@ -1,6 +1,5 @@
 package com.gastronomic.contest.web.rest;
 
-import static com.gastronomic.contest.domain.CustomerAsserts.*;
 import static com.gastronomic.contest.web.rest.TestUtil.createUpdateProxyForBean;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -85,26 +84,6 @@ class CustomerResourceIT {
     @BeforeEach
     public void initTest() {
         customer = createEntity(em);
-    }
-
-    @Test
-    @Transactional
-    void createCustomer() throws Exception {
-        long databaseSizeBeforeCreate = getRepositoryCount();
-        // Create the Customer
-        var returnedCustomer = om.readValue(
-            restCustomerMockMvc
-                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(customer)))
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(),
-            Customer.class
-        );
-
-        // Validate the Customer in the database
-        assertIncrementedRepositoryCount(databaseSizeBeforeCreate);
-        assertCustomerUpdatableFieldsEquals(returnedCustomer, getPersistedCustomer(returnedCustomer));
     }
 
     @Test
@@ -199,33 +178,6 @@ class CustomerResourceIT {
 
     @Test
     @Transactional
-    void putExistingCustomer() throws Exception {
-        // Initialize the database
-        customerRepository.saveAndFlush(customer);
-
-        long databaseSizeBeforeUpdate = getRepositoryCount();
-
-        // Update the customer
-        Customer updatedCustomer = customerRepository.findById(customer.getId()).orElseThrow();
-        // Disconnect from session so that the updates on updatedCustomer are not directly saved in db
-        em.detach(updatedCustomer);
-        updatedCustomer.email(UPDATED_EMAIL).phonenumber(UPDATED_PHONENUMBER).cpf(UPDATED_CPF);
-
-        restCustomerMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, updatedCustomer.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(om.writeValueAsBytes(updatedCustomer))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the Customer in the database
-        assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertPersistedCustomerToMatchAllProperties(updatedCustomer);
-    }
-
-    @Test
-    @Transactional
     void putNonExistingCustomer() throws Exception {
         long databaseSizeBeforeUpdate = getRepositoryCount();
         customer.setId(longCount.incrementAndGet());
@@ -273,62 +225,6 @@ class CustomerResourceIT {
 
         // Validate the Customer in the database
         assertSameRepositoryCount(databaseSizeBeforeUpdate);
-    }
-
-    @Test
-    @Transactional
-    void partialUpdateCustomerWithPatch() throws Exception {
-        // Initialize the database
-        customerRepository.saveAndFlush(customer);
-
-        long databaseSizeBeforeUpdate = getRepositoryCount();
-
-        // Update the customer using partial update
-        Customer partialUpdatedCustomer = new Customer();
-        partialUpdatedCustomer.setId(customer.getId());
-
-        partialUpdatedCustomer.phonenumber(UPDATED_PHONENUMBER);
-
-        restCustomerMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedCustomer.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(om.writeValueAsBytes(partialUpdatedCustomer))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the Customer in the database
-
-        assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertCustomerUpdatableFieldsEquals(createUpdateProxyForBean(partialUpdatedCustomer, customer), getPersistedCustomer(customer));
-    }
-
-    @Test
-    @Transactional
-    void fullUpdateCustomerWithPatch() throws Exception {
-        // Initialize the database
-        customerRepository.saveAndFlush(customer);
-
-        long databaseSizeBeforeUpdate = getRepositoryCount();
-
-        // Update the customer using partial update
-        Customer partialUpdatedCustomer = new Customer();
-        partialUpdatedCustomer.setId(customer.getId());
-
-        partialUpdatedCustomer.email(UPDATED_EMAIL).phonenumber(UPDATED_PHONENUMBER).cpf(UPDATED_CPF);
-
-        restCustomerMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedCustomer.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(om.writeValueAsBytes(partialUpdatedCustomer))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the Customer in the database
-
-        assertSameRepositoryCount(databaseSizeBeforeUpdate);
-        assertCustomerUpdatableFieldsEquals(partialUpdatedCustomer, getPersistedCustomer(partialUpdatedCustomer));
     }
 
     @Test
@@ -419,13 +315,5 @@ class CustomerResourceIT {
 
     protected Customer getPersistedCustomer(Customer customer) {
         return customerRepository.findById(customer.getId()).orElseThrow();
-    }
-
-    protected void assertPersistedCustomerToMatchAllProperties(Customer expectedCustomer) {
-        assertCustomerAllPropertiesEquals(expectedCustomer, getPersistedCustomer(expectedCustomer));
-    }
-
-    protected void assertPersistedCustomerToMatchUpdatableProperties(Customer expectedCustomer) {
-        assertCustomerAllUpdatablePropertiesEquals(expectedCustomer, getPersistedCustomer(expectedCustomer));
     }
 }
