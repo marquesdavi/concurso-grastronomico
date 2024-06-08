@@ -1,0 +1,25 @@
+entity Dish {
+    title String required,
+    description String required,
+    image Blob,
+    restaurant String required
+}
+
+entity Customer {
+    email String,
+    phonenumber String required,
+    cpf String required
+}
+
+entity Vote {
+    id UUID required
+}
+
+relationship ManyToOne {
+    Vote{customer(email)} to Customer
+    Vote{dish(title)} to Dish
+}
+
+paginate Dish with pagination
+paginate Customer with pagination
+paginate Vote with pagination
