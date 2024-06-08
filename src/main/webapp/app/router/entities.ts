@@ -1,4 +1,4 @@
-import { Authority } from '@/shared/security/authority';
+import { Authority } from '../shared/security/authority';
 /* tslint:disable */
 // prettier-ignore
 const Entities = () => import('@/entities/entities.vue');

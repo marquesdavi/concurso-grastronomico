@@ -11,11 +11,8 @@ import JhiItemCountComponent from './shared/jhi-item-count.vue';
 import JhiSortIndicatorComponent from './shared/sort/jhi-sort-indicator.vue';
 import LoginService from './account/login.service';
 import AccountService from './account/account.service';
-import { setupAxiosInterceptors } from '@/shared/config/axios-interceptor';
-import { useStore } from '@/store';
-
-import '../content/scss/global.scss';
-import '../content/scss/vendor.scss';
+import { setupAxiosInterceptors } from './shared/config/axios-interceptor';
+import { useStore } from './store';
 
 const pinia = createPinia();
 
@@ -125,3 +122,13 @@ app
   .use(router)
   .use(pinia)
   .mount('#app');
+
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/home')) {
+    import('../content/css/global.css');
+  } else {
+    import('../content/scss/global.scss');
+    import('../content/scss/vendor.scss');
+  }
+  next();
+});

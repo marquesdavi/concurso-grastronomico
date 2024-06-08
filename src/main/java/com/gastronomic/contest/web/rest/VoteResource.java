@@ -46,13 +46,6 @@ public class VoteResource {
         this.voteRepository = voteRepository;
     }
 
-    /**
-     * {@code POST  /votes} : Create a new vote.
-     *
-     * @param vote the vote to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new vote, or with status {@code 400 (Bad Request)} if the vote has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("")
     public ResponseEntity<Vote> createVote(@Valid @RequestBody Vote vote) throws URISyntaxException {
         log.debug("REST request to save Vote : {}", vote);
@@ -65,16 +58,6 @@ public class VoteResource {
             .body(vote);
     }
 
-    /**
-     * {@code PUT  /votes/:id} : Updates an existing vote.
-     *
-     * @param id the id of the vote to save.
-     * @param vote the vote to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vote,
-     * or with status {@code 400 (Bad Request)} if the vote is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the vote couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<Vote> updateVote(@PathVariable(value = "id", required = false) final UUID id, @Valid @RequestBody Vote vote)
         throws URISyntaxException {
@@ -96,17 +79,6 @@ public class VoteResource {
             .body(vote);
     }
 
-    /**
-     * {@code PATCH  /votes/:id} : Partial updates given fields of an existing vote, field will ignore if it is null
-     *
-     * @param id the id of the vote to save.
-     * @param vote the vote to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vote,
-     * or with status {@code 400 (Bad Request)} if the vote is not valid,
-     * or with status {@code 404 (Not Found)} if the vote is not found,
-     * or with status {@code 500 (Internal Server Error)} if the vote couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Vote> partialUpdateVote(
         @PathVariable(value = "id", required = false) final UUID id,

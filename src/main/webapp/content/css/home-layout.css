@@ -1,0 +1,34 @@
+.landing-page {
+  text-align: center;
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.event-info,
+.dish-list {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  text-align: left;
+}
+
+.dish-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dish-list li {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.dish-list img {
+  max-width: 100px;
+  border-radius: 8px;
+  margin-right: 20px;
+}

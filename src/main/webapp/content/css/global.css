@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  background-color: #f0f0f0ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+header {
+  margin-top: 25px;
+  padding: 16px 0;
+}
+
+.nav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  padding: 0px 45px;
+}
+
+.cab {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style-type: none;
+}
+
+.icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.logo label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #464646;
+}
+
+.links a {
+  font-size: 16px;
+  font-weight: 500;
+  color: #464646;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: color 0.3s;
+}
+
+.links a:hover {
+  color: #000;
+}
+
+.vote-button {
+  background: #ff04b3;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.vote-text {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.main {
+  margin-top: 32px;
+}
+
+.home {
+  margin: 30px 0;
+}
+
+.home .banner-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-width: 1270px;
+  background-color: #f0f0f0ff;
+}
+
+.vaiDeBet-section {
+  background: #f2c230;
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.vaiDeBet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.vaiDeBet img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.text {
+  max-width: 600px;
+}
+
+.text h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #222021;
+  margin-bottom: 16px;
+}
+
+.text h3 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #222021;
+  margin-bottom: 16px;
+}
+
+.text input {
+  padding: 12px 24px;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #222021;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.text input:hover {
+  background-color: #000;
+}
+
+.mais-votados {
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.mais-votados h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #222021;
+  margin-bottom: 32px;
+}
+
+.social-midia {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 300px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 16px;
+  text-align: left;
+}
+
+.card-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222021;
+  margin-bottom: 8px;
+}
+
+.card-content p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #464646;
+  margin-bottom: 16px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #828282;
+}
+
+.sobre {
+  background: #f2c230;
+  padding: 64px 16px;
+}
+
+.sobre-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sobre-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222021;
+  margin-bottom: 24px;
+}
+
+.sobre-content p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #464646;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.roda-pe {
+  background: #fc9401;
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.se-beber .pe {
+  background: #3bd972;
+  color: #222021;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding: 10px;
+}
+
+.roda-pe h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #222021;
+}

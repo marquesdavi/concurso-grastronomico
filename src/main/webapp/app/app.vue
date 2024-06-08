@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <ribbon></ribbon>
-    <div id="app-header">
+    <ribbon v-if="!$route.meta.noLayout"></ribbon>
+    <div id="app-header" v-if="!$route.meta.noLayout">
       <jhi-navbar></jhi-navbar>
     </div>
     <div class="container-fluid">
-      <div class="card jh-card">
+      <div v-if="!$route.meta.noLayout" class="card jh-card">
+        <router-view></router-view>
+      </div>
+      <div v-else>
         <router-view></router-view>
       </div>
       <b-modal id="login-page" hide-footer lazy>
@@ -15,7 +18,7 @@
         <login-form></login-form>
       </b-modal>
 
-      <jhi-footer></jhi-footer>
+      <jhi-footer v-if="!$route.meta.noLayout"></jhi-footer>
     </div>
   </div>
 </template>
