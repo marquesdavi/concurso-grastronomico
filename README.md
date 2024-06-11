@@ -1,6 +1,6 @@
 # Concurso Gastronômico
 
-Esta aplicação foi gerada usando JHipster 8.4.0. Abaixo, você encontrará uma descrição simplificada do projeto, as tecnologias utilizadas, as rotas disponíveis e as instruções para rodar o projeto.
+Painel de controle feito com Jhipser. Abaixo, você encontrará uma descrição do projeto, as tecnologias utilizadas, as rotas disponíveis e as instruções para rodar o projeto.
 
 ## Descrição do Projeto
 
@@ -13,8 +13,11 @@ O Concurso Gastronômico é uma aplicação web desenvolvida com as seguintes te
 
 ## Autores
 
-- [@marquesdavi](https://www.github.com/marquesdavi) - FullStack Developer and Projct Manager
-
+- [@marquesdavi](https://www.github.com/marquesdavi) - Desenvolvedor FullStack(Backend Heavy) e Gerente de Projetos
+- [@EdsKelvin](https://github.com/EdsKelvin) - Desenvolvedor FullStack
+- [@DevPedrosacul](https://github.com/DevPedrosacul) - Desenvolvedor Frontend
+- [@VagnerNCarvalho](https://github.com/VagnerNCarvalho) - Requisitos e Prototipagem
+- [@samirfsantos](https://github.com/samirfsantos) - Requisitos
 
 ## Tecnologias Utilizadas
 
