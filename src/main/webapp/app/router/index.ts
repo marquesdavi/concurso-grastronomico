@@ -6,7 +6,8 @@ import account from '../router/account';
 import admin from '../router/admin';
 import entities from '../router/entities';
 import pages from '../router/pages';
-import LandingPage from '../home/Home.vue';
+import LandingPage from '../contest/Home.vue';
+import contest from '../router/contest';
 
 export const createRouter = () =>
   createVueRouter({
@@ -16,12 +17,6 @@ export const createRouter = () =>
         path: '/',
         name: 'Home',
         component: Home,
-      },
-      {
-        path: '/home',
-        name: 'LandingPage',
-        component: LandingPage,
-        meta: { noLayout: true },
       },
       {
         path: '/forbidden',
@@ -39,6 +34,7 @@ export const createRouter = () =>
       ...admin,
       entities,
       ...pages,
+      ...contest,
     ],
   });
 

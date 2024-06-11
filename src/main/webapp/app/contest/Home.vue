@@ -37,43 +37,36 @@
         </div>
       </section>
       <section class="mais-votados">
-        <h2>Mais votados</h2>
+        <h2>Pratos</h2>
         <div class="social-midia">
-          <div class="card">
-            <img src="https://via.placeholder.com/299x299" alt="Dish Image" />
+          <div class="card" v-for="dish in dishes" :key="dish.id">
+            <img :src="dish.formattedImage" alt="Dish Image" />
             <div class="card-content">
-              <h3>Bar do Cuscuz</h3>
-              <p>Arroz cremoso de queijo coalho</p>
+              <h3>{{ dish.title }}</h3>
+              <p>{{ dish.description }}</p>
               <div class="card-footer">
-                <span>3 likes</span>
-                <span>0 comments</span>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/299x299" alt="Dish Image" />
-            <div class="card-content">
-              <h3>Q’Doca</h3>
-              <p>Espetinho de queijo coalho com bacon</p>
-              <div class="card-footer">
-                <span>21 likes</span>
-                <span>4 comments</span>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/299x299" alt="Dish Image" />
-            <div class="card-content">
-              <h3>Seu Manoel</h3>
-              <p>Pão de alho</p>
-              <div class="card-footer">
-                <span>52 likes</span>
-                <span>20 comments</span>
+                <span>{{ dish.restaurant }} likes</span>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <section class="mais-votados">
+        <h2>Mais votados</h2>
+        <div class="social-midia">
+          <div class="card" v-for="dish in dishes" :key="dish.id">
+            <img :src="dish.formattedImage" alt="Dish Image" />
+            <div class="card-content">
+              <h3>{{ dish.title }}</h3>
+              <p>{{ dish.description }}</p>
+              <div class="card-footer">
+                <span>{{ dish.restaurant }} likes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="sobre">
         <div class="sobre-content">
           <h2>Sobre</h2>
@@ -99,8 +92,22 @@
 </template>
 
 <script>
+import { getDishes } from './logic/home';
+
 export default {
   name: 'LandingPage',
+  data() {
+    return {
+      dishes: [],
+    };
+  },
+  async mounted() {
+    try {
+      this.dishes = await getDishes(); // Call the function to fetch dishes
+    } catch (error) {
+      console.error('Error fetching dishes:', error);
+    }
+  },
 };
 </script>
 

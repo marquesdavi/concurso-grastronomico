@@ -124,7 +124,7 @@ app
   .mount('#app');
 
 router.beforeEach((to, from, next) => {
-  if (to.path.startsWith('/home')) {
+  if (to.path.startsWith('/contest')) {
     import('../content/css/global.css');
   } else {
     import('../content/scss/global.scss');
