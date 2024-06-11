@@ -17,6 +17,7 @@ O Concurso Gastronômico é uma aplicação web desenvolvida com as seguintes te
 - [@EdsKelvin](https://github.com/EdsKelvin) - Desenvolvedor FullStack
 - [@DevPedrosacul](https://github.com/DevPedrosacul) - Desenvolvedor Frontend
 - [@VagnerNCarvalho](https://github.com/VagnerNCarvalho) - Requisitos e Prototipagem
+- [@gitsamara](https://github.com/gitsamara) - Requisitos e Prototipagem
 - [@samirfsantos](https://github.com/samirfsantos) - Requisitos
 
 ## Tecnologias Utilizadas
