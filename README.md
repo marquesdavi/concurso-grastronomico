@@ -1,4 +1,7 @@
-# gastronomicCont
+# Concurso Gastronomico
+
+
+![image](https://github.com/marquesdavi/concurso-grastronomico/assets/50294449/d8a16bca-e9df-4dab-8572-632fa09a7564)
 
 This application was generated using JHipster 8.4.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.4.0](https://www.jhipster.tech/documentation-archive/v8.4.0).
 
