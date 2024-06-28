@@ -2,6 +2,7 @@ package com.gastronomic.contest.web.rest.errors;
 
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
+import com.gastronomic.contest.web.rest.exception.GenericException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Arrays;
@@ -55,6 +56,11 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
 
     public ExceptionTranslator(Environment env) {
         this.env = env;
+    }
+
+    @ExceptionHandler(GenericException.class)
+    public ResponseEntity handleGenericException(GenericException exception) {
+        return ResponseEntity.status(exception.getHttpStatus()).body(exception.getMessage());
     }
 
     @ExceptionHandler

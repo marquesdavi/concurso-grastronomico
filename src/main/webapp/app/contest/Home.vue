@@ -13,7 +13,7 @@
             <li class="links"><a href="#">Sobre</a></li>
             <li class="links"><a href="#">Mapa gastronômico</a></li>
             <li class="links"><a href="#">Restaurantes</a></li>
-            <li class="links"><a href="#">Pratos</a></li>
+            <li class="links"><a href="#dishes">Pratos</a></li>
           </ul>
           <div class="vote-button">
             <div class="vote-text">VOTAR</div>
@@ -37,36 +37,22 @@
         </div>
       </section>
       <section class="mais-votados">
-        <h2>Pratos</h2>
+        <h2 id="dishes">Pratos</h2>
         <div class="social-midia">
-          <div class="card" v-for="dish in dishes" :key="dish.id">
-            <img :src="dish.formattedImage" alt="Dish Image" />
-            <div class="card-content">
-              <h3>{{ dish.title }}</h3>
-              <p>{{ dish.description }}</p>
-              <div class="card-footer">
-                <span>{{ dish.restaurant }} likes</span>
-              </div>
+          <div class="card" v-for="dish in paginatedDishes" :key="dish.id">
+            <img :src="dish.formattedImage" alt="Dish Image" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title">{{ dish.title }}</h5>
+              <p class="card-text">{{ dish.description }}</p>
             </div>
           </div>
         </div>
-      </section>
-      <section class="mais-votados">
-        <h2>Mais votados</h2>
-        <div class="social-midia">
-          <div class="card" v-for="dish in dishes" :key="dish.id">
-            <img :src="dish.formattedImage" alt="Dish Image" />
-            <div class="card-content">
-              <h3>{{ dish.title }}</h3>
-              <p>{{ dish.description }}</p>
-              <div class="card-footer">
-                <span>{{ dish.restaurant }} likes</span>
-              </div>
-            </div>
-          </div>
+        <div class="pagination">
+          <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{ active: currentPage === page }">
+            {{ page }}
+          </button>
         </div>
       </section>
-
       <section class="sobre">
         <div class="sobre-content">
           <h2>Sobre</h2>
@@ -99,7 +85,19 @@ export default {
   data() {
     return {
       dishes: [],
+      currentPage: 1,
+      itemsPerPage: 5,
     };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.dishes.length / this.itemsPerPage);
+    },
+    paginatedDishes() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.dishes.slice(start, end);
+    },
   },
   async mounted() {
     try {

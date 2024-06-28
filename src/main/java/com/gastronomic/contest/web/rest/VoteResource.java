@@ -3,6 +3,7 @@ package com.gastronomic.contest.web.rest;
 import com.gastronomic.contest.domain.Vote;
 import com.gastronomic.contest.repository.VoteRepository;
 import com.gastronomic.contest.web.rest.errors.BadRequestAlertException;
+import com.gastronomic.contest.web.rest.exception.GenericException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +54,11 @@ public class VoteResource {
         if (vote.getId() != null) {
             throw new BadRequestAlertException("A new vote cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        if (voteRepository.existsVoteByCustomerAndDish(vote.getCustomer().getId(), vote.getDish().getId())) {
+            throw new GenericException("You can't vote the same dish twice!", HttpStatus.CONFLICT);
+        }
+
         vote = voteRepository.save(vote);
         return ResponseEntity.created(new URI("/api/votes/" + vote.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, vote.getId().toString()))

@@ -38,4 +38,7 @@ public interface VoteRepository extends JpaRepository<Vote, UUID> {
 
     @Query("select vote from Vote vote left join fetch vote.customer left join fetch vote.dish where vote.id =:id")
     Optional<Vote> findOneWithToOneRelationships(@Param("id") UUID id);
+
+    @Query("select count(v) > 0 from Vote v where v.customer.id = :customerId and v.dish.id = :dishId")
+    boolean existsVoteByCustomerAndDish(@Param("customerId") Long customerId, @Param("dishId") Long dishId);
 }

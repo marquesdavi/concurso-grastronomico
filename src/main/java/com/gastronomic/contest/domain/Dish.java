@@ -3,12 +3,14 @@ package com.gastronomic.contest.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import lombok.Builder;
 
 /**
  * A Dish.
  */
 @Entity
 @Table(name = "dish")
+@Builder
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Dish implements Serializable {
 
@@ -37,6 +39,8 @@ public class Dish implements Serializable {
     @NotNull
     @Column(name = "restaurant", nullable = false)
     private String restaurant;
+
+    public Dish() {}
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

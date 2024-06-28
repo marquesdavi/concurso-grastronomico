@@ -17,9 +17,8 @@ public class Vote implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "id", length = 36, nullable = false)
     private UUID id;

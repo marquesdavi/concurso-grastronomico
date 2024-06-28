@@ -2,9 +2,8 @@ import axios from 'axios';
 
 export async function getDishes() {
   try {
-    const response = await axios.get('api/dishes');
+    const response = await axios.get('api/public/dish/');
 
-    // Check for valid response data before processing
     if (!response.data || !Array.isArray(response.data)) {
       throw new Error('Invalid dishes data received from API');
     }
@@ -13,7 +12,7 @@ export async function getDishes() {
       if (dish.image && dish.imageContentType) {
         dish.formattedImage = `data:${dish.imageContentType};base64,${dish.image}`;
       } else {
-        dish.formattedImage = null; // Set to null for consistency
+        dish.formattedImage = null;
       }
       return dish;
     });
@@ -21,7 +20,7 @@ export async function getDishes() {
     return formattedDishes;
   } catch (error) {
     console.error('Error fetching dishes:', error);
-    return []; // Return an empty array for error handling in Vue component
+    return [];
   }
 }
 

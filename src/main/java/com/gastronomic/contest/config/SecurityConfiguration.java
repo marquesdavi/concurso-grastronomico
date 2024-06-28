@@ -31,7 +31,6 @@ import tech.jhipster.config.JHipsterProperties;
 public class SecurityConfiguration {
 
     private final Environment env;
-
     private final JHipsterProperties jHipsterProperties;
 
     public SecurityConfiguration(Environment env, JHipsterProperties jHipsterProperties) {
@@ -67,29 +66,58 @@ public class SecurityConfiguration {
             )
             .authorizeHttpRequests(
                 authz ->
-                    // prettier-ignore
-                authz
-                    .requestMatchers(mvc.pattern("/index.html"), mvc.pattern("/*.js"), mvc.pattern("/*.txt"), mvc.pattern("/*.json"), mvc.pattern("/*.map"), mvc.pattern("/*.css")).permitAll()
-                    .requestMatchers(mvc.pattern("/*.ico"), mvc.pattern("/*.png"), mvc.pattern("/*.svg"), mvc.pattern("/*.webapp")).permitAll()
-                    .requestMatchers(mvc.pattern("/assets/**")).permitAll()
-                    .requestMatchers(mvc.pattern("/content/**")).permitAll()
-                    .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
-                    .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/authenticate")).permitAll()
-                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authenticate")).permitAll()
-                    .requestMatchers(mvc.pattern("/api/register")).permitAll()
-                    .requestMatchers(mvc.pattern("/api/activate")).permitAll()
-                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/votes")).permitAll()
-                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/dishes")).permitAll()
-                    .requestMatchers(mvc.pattern("/api/account/reset-password/init")).permitAll()
-                    .requestMatchers(mvc.pattern("/api/account/reset-password/finish")).permitAll()
-                    .requestMatchers(mvc.pattern("/api/admin/**")).hasAuthority(AuthoritiesConstants.ADMIN)
-                    .requestMatchers(mvc.pattern("/api/**")).authenticated()
-                    .requestMatchers(mvc.pattern("/v3/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
-                    .requestMatchers(mvc.pattern("/management/health")).permitAll()
-                    .requestMatchers(mvc.pattern("/management/health/**")).permitAll()
-                    .requestMatchers(mvc.pattern("/management/info")).permitAll()
-                    .requestMatchers(mvc.pattern("/management/prometheus")).permitAll()
-                    .requestMatchers(mvc.pattern("/management/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+                    authz
+                        .requestMatchers(
+                            mvc.pattern("/index.html"),
+                            mvc.pattern("/*.js"),
+                            mvc.pattern("/*.txt"),
+                            mvc.pattern("/*.json"),
+                            mvc.pattern("/*.map"),
+                            mvc.pattern("/*.css")
+                        )
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/*.ico"), mvc.pattern("/*.png"), mvc.pattern("/*.svg"), mvc.pattern("/*.webapp"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/assets/**"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/content/**"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/swagger-ui/**"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/authenticate"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authenticate"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/api/register"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/api/activate"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/votes"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/dishes"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/public/dish/**"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/api/account/reset-password/init"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/api/account/reset-password/finish"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/api/admin/**"))
+                        .hasAuthority(AuthoritiesConstants.ADMIN)
+                        .requestMatchers(mvc.pattern("/api/**"))
+                        .authenticated()
+                        .requestMatchers(mvc.pattern("/v3/api-docs/**"))
+                        .hasAuthority(AuthoritiesConstants.ADMIN)
+                        .requestMatchers(mvc.pattern("/management/health"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/management/health/**"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/management/info"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/management/prometheus"))
+                        .permitAll()
+                        .requestMatchers(mvc.pattern("/management/**"))
+                        .hasAuthority(AuthoritiesConstants.ADMIN)
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(
@@ -99,9 +127,11 @@ public class SecurityConfiguration {
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()));
+
         if (env.acceptsProfiles(Profiles.of(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT))) {
             http.authorizeHttpRequests(authz -> authz.requestMatchers(antMatcher("/h2-console/**")).permitAll());
         }
+
         return http.build();
     }
 
